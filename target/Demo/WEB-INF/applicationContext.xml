@@ -31,6 +31,14 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<list>
 			<value>com.model.Product</value>
 			<value>com.model.Category</value>
+			<value>com.model.Users</value>
+			<value>com.model.Authorities</value>
+			<value>com.model.BillingAddress</value>
+			<value>com.model.ShippingAddress</value>
+			<value>com.model.Customer</value>
+			<value>com.model.Cart</value>
+			<value>com.model.CartItem</value>
+			<value>com.model.CustomerOrder</value>
 		</list>
 	</property>
 </bean>
@@ -44,6 +52,42 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 
 <bean id="productService" class="com.services.ProductServiceImpl">  
 </bean> 
+
+<bean id="customerdao" class="com.dao.CustomerDaoImpl">  
+</bean>
+
+<bean id="customerService" class="com.services.CustomerServiceImpl">  
+</bean>
+<security:http auto-config="true" use-expressions="true">
+	<security:csrf disabled="true"/>
+     <security:intercept-url pattern="/home" access="permitAll"/>
+     <security:intercept-url pattern="/about" access="permitAll"/>
+     <security:intercept-url pattern="/customer/registration" access="permitAll"/>
+      <security:intercept-url pattern="/login" access="permitAll"/>
+    <security:intercept-url pattern="/*/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+    <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+
+ 	<security:form-login login-page="/login" 
+ 	authentication-failure-url="/login?error"
+ 	login-processing-url="/j_spring_security_check"
+ 	default-target-url="/home"
+ 	username-parameter="j_username"
+ 	password-parameter="j_password"/>
+ 
+    <security:logout logout-success-url="/login?logout" 
+    logout-url="/j_spring_security_logout"/>
+    </security:http>
+    
+    
+    <security:authentication-manager>
+    <security:authentication-provider>
+    <security:jdbc-user-service
+                    data-source-ref="dataSource"
+                    authorities-by-username-query="SELECT username, authorities FROM authorities WHERE username = ?"
+                    users-by-username-query="SELECT username, password, enabled FROM users WHERE username = ?" />
+    
+    </security:authentication-provider>
+    </security:authentication-manager>
 
 
 </beans>

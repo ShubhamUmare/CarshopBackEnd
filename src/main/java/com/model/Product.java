@@ -8,7 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="productapp")
@@ -17,10 +21,13 @@ public class Product {
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int ID;
-	
+	@NotEmpty(message="Name is Mandatory")
 	private String Name;
-	
+	@Min(value=50000,message="Minimum value should be greater than 50000")
 	private double Price;
+	@Transient
+	private MultipartFile productImage;
+
 	@ManyToOne()
 	@JoinColumn(name="Cid")
 	private Category category;
@@ -47,6 +54,12 @@ public class Product {
 	}
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 	
 

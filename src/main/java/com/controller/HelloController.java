@@ -1,16 +1,24 @@
 package com.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.model.Category;
@@ -56,6 +64,17 @@ public class HelloController {
 	
 	@RequestMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable(value="id") int id){
+		Path path= (Path) Paths.get("C:/Users/shubham/workspace/Demo/src/main/webapp/WEB-INF/resources/images/" + id + ".png");
+		if(Files.exists(path))
+				{
+			           try {
+						Files.delete( path);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
 		productservice.deleteProduct(id);
 		
 		return "redirect:/";
@@ -73,9 +92,27 @@ public class HelloController {
 	}
 	
 	@RequestMapping(value="/admin/product/addProduct",method=RequestMethod.POST)
-	public String addProduct(@ModelAttribute(value="productFormObj") Product product){
-		
+	public String addProduct(@Valid @ModelAttribute(value="productFormObj") Product product,BindingResult result){
+		if(result.hasErrors())
+			return "productForm";
+
 		productservice.addProduct(product);
+		
+	
+		MultipartFile image=product.getProductImage();
+		if(image!=null && !image.isEmpty()){
+		Path path=(Path) Paths.get("C:/Users/shubham/workspace/Demo/src/main/webapp/WEB-INF/resources/images/" + product.getID() + ".png");
+		try {
+			image.transferTo(new File(path.toString()));
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+
 		return "redirect:/";
 	}
 	
