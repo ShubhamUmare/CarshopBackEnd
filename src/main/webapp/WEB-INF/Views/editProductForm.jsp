@@ -19,7 +19,7 @@
 	<center>
 	<h1>Edit Product</h1>
 	<c:url value="/admin/product/editProduct" var="url"></c:url> 
-	<form:form method="post" action="${url}" commandName="editProductObj">
+	<form:form method="post" action="${url}" commandName="editProductObj" modelAttribute="editProductObj">
 		<table>
 		<tr>
 			<td><form:label path="ID">ID</form:label></td>
@@ -27,12 +27,14 @@
 			<form:hidden path="ID" /></td>
         </tr>
         <tr>
+        <form:errors path="name" cssStyle="color: #ff0000"/> 
         <td><form:label path="name">Name</form:label>  </td>
         <td><form:input path="name"></form:input></td>
 	    </tr>
 	     
 	     <tr>
-        <td><form:label path="price">PRICE</form:label>  </td>
+	     <form:errors path="price" cssStyle="color: #ff0000"/>
+        <td><form:label path="price">PRICE</form:label></td>
         <td><form:input path="price"></form:input></td>
 	    </tr>
 	     	    
@@ -45,8 +47,18 @@
 	    </td>
 	    </tr>
 	    
+	      <tr>
+	    <td><form:label path="supplier">Supplier:</form:label>
+	    
+	    <form:radiobutton path="supplier.SID" value="1"/>AMW
+	     <form:radiobutton path="supplier.SID" value="2"/>Tata
+	     <form:radiobutton path="supplier.SID" value="990"/>Macro  
+	      
+	    </td>
+	    </tr>
+	    
 	    <tr>
-	    <td colspan="2"><input type="submit" value="EditBook"></td>
+	    <td colspan="2"><input type="submit" value="EditProduct"></td>
 	    </tr>
 		</table>
 	</form:form>

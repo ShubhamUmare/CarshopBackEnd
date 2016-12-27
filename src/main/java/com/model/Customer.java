@@ -1,7 +1,11 @@
 package com.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,31 +13,43 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="customer")
-public class Customer {
+public class Customer implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 private int customerId;
+	
+@NotEmpty(message="Customer name cannot be empty")
 private String customerName;
+
+@NotEmpty(message="Email cannot be null")
+@Column(unique=true)
 private String customerEmail;
+
+@NotEmpty(message="Phone number cannot  be null")
 private String customerPhone;
 
-@OneToOne(cascade=CascadeType.ALL)
+@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 @JoinColumn(name="usersid")
 private Users users;
 
-@OneToOne(cascade=CascadeType.ALL)
+@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 @JoinColumn(name="billingaddressid")
 private BillingAddress billingAddress;
 
-@OneToOne(cascade=CascadeType.ALL)
+@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 @JoinColumn(name="shippingaddressid")
 private ShippingAddress shippingAddress;
 
-@OneToOne(cascade=CascadeType.ALL)
+@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 @JoinColumn(name="cartid")
+@JsonIgnore
 private Cart cart;
 
 public int getCustomerId() {

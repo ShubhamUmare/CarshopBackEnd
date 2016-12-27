@@ -1,9 +1,12 @@
 package com.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,13 +47,26 @@ public ModelAndView getRegistrationForm(){
 }
 
 
-
+@Transactional
 @RequestMapping(value="/customer/registration",method=RequestMethod.POST)
 public String registerCustomer(@Valid @ModelAttribute(value="customer")Customer customer,
-		Model model,
-		BindingResult result){
+		
+		BindingResult result,Model model){
 	if(result.hasErrors())
 		return " registrationCustomer";
+	
+	List<Customer> customerList=customerServices.getAllCustomers();
+	for(Customer c:customerList){
+		if(c.getUsers().getUsername().equals(customer.getUsers().getUsername()))
+		{
+			model.addAttribute("duplicateUname","Username already exists");
+			return "registrationCustomer";
+		}
+		if(c.getCustomerEmail().equals(customer.getCustomerEmail())){
+			model.addAttribute("duplicateEmail","Email Id already exists");
+			return "registrationCustomer";
+		}
+	}
 	customerServices.addCustomer(customer);
 	model.addAttribute("registrationSuccess","Registered Successfully. Login using username and password");
 	return "login";

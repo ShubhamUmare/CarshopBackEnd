@@ -1,5 +1,7 @@
 package com.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,13 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-
-
-
 @Entity
 @Table(name="billingaddress")
-public class BillingAddress {
+public class BillingAddress implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 private int billingAddressId;

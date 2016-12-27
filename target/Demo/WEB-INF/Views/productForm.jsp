@@ -12,24 +12,10 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link type="text/css" rel="stylesheet" href="<c:url value="style.css" />" />
-  <style>
-  
- h1 {
-  color:black;
-  text-align:center;
-  font-family: 'vibor', cursive;
-  font-size: 50px;
-	}  
-.form-group {
-  position: relative;
-  margin-bottom: 15px;
-}
-
-  </style>    
+    
 </head>
-<body class="bg-info">
-		<h1>Add New Products</h1>
+<body class="bg-success">
+		<center><h1>Add New Products</h1></center>
 		
 		<c:url value="/admin/product/addProduct" var="url"></c:url> 
 		<form:form method="post" action="${url}" commandName="productFormObj" enctype="multipart/form-data">
@@ -41,22 +27,23 @@
 			<td><form:label path="ID"></form:label></td>
 			<td><form:hidden path="ID" /></td>
         </tr>
+    
         <tr>
-        <td><form:label path="name"><font  size="4" color="#0f0f0a" style="font-family:verdana">Name:</font></form:label> 
+        <td><form:label path="name">Name:</form:label> 
         <form:input path="name"></form:input></td>
         
         <form:errors path="name"></form:errors>
 	    </tr>
 	     
 	     <tr>
-        <td><form:label path="price"><font  size="4" color="#0f0f0a" style="font-family:verdana">Price:</font></form:label>
+        <td><form:label path="price">Price:</form:label>
         <form:input path="price"></form:input></td>
         
         <form:errors path="price"></form:errors>
 	    </tr>
-	     	    
+	      
 	    <tr>
-	    <td><form:label path="category"><font  size="4" color="#0f0f0a" style="font-family:verdana">Category:</font></form:label>
+	    <td><form:label path="category">Category:</form:label>
 	    
 	    <form:radiobutton path="category.cid" value="1"/>New Arrivals
 	     <form:radiobutton path="category.cid" value="2"/>Special Edition	
@@ -64,12 +51,27 @@
 	    </td>
 	    </tr>
 	    
-	    <tr><td><form:input type="file" class="btn btn-link" path="productImage" /></td></tr>
+	    
+	    
+	     <tr>
+	    
+	    <td><form:label path="supplier">Supplier:</form:label>
+	    
+	    <form:radiobutton path="supplier.SID" value="1"/>shubz
+	     <form:radiobutton path="supplier.SID" value="2"/>Zen	
+	      <form:radiobutton path="supplier.SID" value="990"/>Max
+	      <form:radiobutton path="supplier.SID" value="1115"/>Tata
+	    </td>
+	    </tr>
+	     
+        
+	    
+	    <tr><td><form:input type="file" class="btn btn-link" path="productImage"/></td></tr>
 	  
 	    
 	    <tr>
 	    <td>
-	    <input type="submit" class="btn btn-success" value="AddProduct">
+	    <input type="submit"  value="AddProduct">
 	    </td>
 	    </tr>
 	   
@@ -77,51 +79,10 @@
 	 </center>
 	 </form:form>
 	
-		<center><H1> List of Products</H1></center>
-		<div class="cantainer">
-		<div class="responsive">
-	<table class="table table-striped">
-		<thead>
-		<tr class="danger">
-			<th style="width:10">ID</th>
-			<th style="width:30">Images</th>
-			<th style="width:20">Product Name</th>
-			<th style="width:10">Delete</th>
-			<th style="width:10">Edit</th>
-		</tr>
-		</thead>
-		<!--  for Each book b in books -->
-		<c:forEach items="${products}" var="p">
-		
-<tr class="active">
-		<td>
-			<a href="getProductById/${p.ID}"><c:out value="${p.ID}"></c:out></a>	
-		</td>
-			
-		<td>
-			<img src="<c:url value="/resources/images/${p.ID }.png"/>" width="20%"/>
-		</td>
-		<td>
-				<c:out value="${p.name}"></c:out>
-		</td>
-		
-		<security:authorize access="hasRole('ROLE_ADMIN')">	
-		<td>
-		<a href="delete/${p.ID}"><span class="glyphicon glyphicon-trash"></span></a>
-		</td>
-		<td>
-		<a href="admin/product/editProduct/${p.ID}"><span class="glyphicon glyphicon-edit"></span></a>
-		</td>
-		</security:authorize>
 		
 		
-		</tr>
-		</c:forEach>
-	</table>	
-
 <%@ include file="footer.jsp" %>
-	</div>
-	</div>
+	
 
 	
 </body>

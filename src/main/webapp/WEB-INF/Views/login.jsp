@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Login Form</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -27,7 +27,7 @@
 
 h1 {
   color:grey;
-  text-align: left;
+  text-align: center;
   font-family: 'Vibur', cursive;
   font-size: 50px;
 }
@@ -164,14 +164,13 @@ h1 {
 <div class="container-wrapper">
     <div class="container">
         <div id="login-box">
-            <h2>Login with Username and Password</h2>
+        	<h1>Login</h1>
+            <p class="lead">Login with Username and Password</p>
             
             <c:if test="${registrationSuccess !=null}">
 				${registrationSuccess }
 			</c:if>
-			<c:if test="${logout!=null }">
-				${logout }
-			</c:if>
+			
             
             				
             <c:if test="${not empty logout}">
@@ -191,7 +190,7 @@ h1 {
      <span class="glypicon glypicon-lock"></span>  
      </div>
       
-      <input type="submit" value="Login" class="btn btn-default">
+      <input type="submit" value="Login" class="btn btn-warning">
      
             </form>
         </div>

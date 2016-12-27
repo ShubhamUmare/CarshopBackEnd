@@ -1,5 +1,7 @@
 package com.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,17 +9,33 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+
 @Entity
 @Table(name="shippingaddress")
-public class ShippingAddress {
+public class ShippingAddress  implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 private int shippingAddressId;
+	
+@NotEmpty(message="Street Name cannot be empty")
 private String streetName;
+
+@NotEmpty(message="Apartment Name cannot be empty")
 private String apartmentNumber;
+
+@NotEmpty(message="City Name cannot be empty")
 private String city;
+
+@NotEmpty(message="State Name cannot be empty")
 private String state;
+
+@NotEmpty(message="Country Name cannot be empty")
 private String country;
+
+@NotEmpty(message="Zipcode cannot be empty")
 private String zipcode;
 
 @OneToOne(mappedBy="shippingAddress")

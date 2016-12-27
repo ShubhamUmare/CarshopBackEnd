@@ -105,7 +105,7 @@
       <h4>Jaguar</h4>
     </div>
     <div class="col-sm-2">
-      <img src="<c:url value="/resources/images/logo13.jpg"/>" class="img-responsive" style="width:50%" alt="Image">
+      <img src="<c:url value="/resources/images/logo55.jpg"/>" class="img-responsive" style="width:50%" alt="Image">
       <h4>Mini Cooper</h4>
     </div>
     <div class="col-sm-2">
@@ -113,8 +113,8 @@
       <h4>ABARTH</h4>
     </div>
     <div class="col-sm-2">
-      <img src="<c:url value="/resources/images/logo6.jpg"/>" class="img-responsive" style="width:50%" alt="Image">
-      <h4>Partner 6</h4>
+      <img src="<c:url value="/resources/images/logo50.jpg"/>" class="img-responsive" style="width:50%" alt="Image">
+      <h4>Tata</h4>
     </div>
   </div>
 </div><br>

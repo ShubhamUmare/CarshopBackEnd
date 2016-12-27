@@ -1,5 +1,8 @@
 package com.model;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="productapp")
-public class Product {
+public class Product implements Serializable {
 	@Id 
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -25,12 +28,17 @@ public class Product {
 	private String Name;
 	@Min(value=50000,message="Minimum value should be greater than 50000")
 	private double Price;
+	
+	@ManyToOne
+	@JoinColumn(name="Cid")
+	private Category category;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="SID")
+	private Supplier supplier;
 	@Transient
 	private MultipartFile productImage;
 
-	@ManyToOne()
-	@JoinColumn(name="Cid")
-	private Category category;
 	public int getID() {
 		return ID;
 	}
@@ -60,6 +68,12 @@ public class Product {
 	}
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
+	}
+	public Supplier getSupplier() {
+		return supplier;
+	}
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
 	
 

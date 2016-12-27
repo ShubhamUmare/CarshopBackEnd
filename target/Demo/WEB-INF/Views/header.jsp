@@ -17,7 +17,7 @@
 
 
 
-<title>Insert title here</title>
+<title>Header Page</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -26,15 +26,26 @@
       			<a class="navbar-brand" href="#">Fast & Furious</a>
     		</div>
 			<ul class="nav navbar-nav ">
-				<li><a href="<c:url value="/home"/>">Home</a></li>
+				<li class="active"><a href="<c:url value="/home"/>">Home</a></li>
+		
 				<li><a href="<c:url value="/about"/>">About us</a></li>
 				
 				<c:if test="${pageContext.request.userPrincipal.name!=null}" >
 		<security:authorize access="hasRole('ROLE_ADMIN')">
-			<li><a href="<c:url value="/admin/product/addProduct"/>">Add New Product</a></li>
+			
+		<li><a href="<c:url value="/admin/Product"/>">Product</a></li>
+		<li><a href="<c:url value="/admin/Category"/>">Category</a></li>
+		<li><a href="<c:url value="/admin/Supplier"/>">Supplier</a></li>
+			
 		</security:authorize>
-			<li><a href="<c:url value="/"/>">Browse All Products</a></li>		
+		
+		
+			<li><a href="<c:url value="/productsListAnguler"/>">Browse All Products</a></li>
+				
 			<li><a>Welcome ${pageContext.request.userPrincipal.name }</a></li>
+			<security:authorize access="hasRole('ROLE_USER')">
+			<li><a href=<c:url value="/cart/getCartId"/>>Cart</a></li>
+			</security:authorize>
 			<li><a href="<c:url value="/j_spring_security_logout"></c:url>">logout</a></li>
 		</c:if>
 		<!--  when the user not logged in -->

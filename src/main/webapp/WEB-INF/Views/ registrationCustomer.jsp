@@ -15,16 +15,157 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+  @import url(http://fonts.googleapis.com/css?family=Vibur);
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-family:arial;
+}
 
 
 
-<title>Insert title here</title>
+h1 {
+  color:grey;
+  text-align:center;
+  font-family: 'Vibur', cursive;
+  font-size: 50px;
+}
+
+.login-form {
+  width: 350px;
+  padding: 40px 30px;
+  background: #eed;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  right: 0;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 30%;
+  height: 35px;
+  border: none;
+  padding: 5px 7px 5px 15px;
+  background: #fff;
+  color: #666;
+  border: 2px solid #ddd;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.form-control:focus, .form-control:focus + .fa {
+  border-color: #10CE88;
+  color: #10CE88;
+}
+
+.form-group .fa {
+  position: absolute;
+  right: 15px;
+  top: 17px;
+  color: #999;
+}
+
+.log-status.wrong-entry {
+  -moz-animation: wrong-log 0.3s;
+  -webkit-animation: wrong-log 0.3s;
+  animation: wrong-log 0.3s;
+}
+
+.log-status.wrong-entry .form-control, .wrong-entry .form-control + .fa {
+  border-color: #ed1c24;
+  color: #ed1c24;
+}
+
+.log-btn {
+  background: #FAC986;
+  dispaly: inline-block;
+  width: 10%;
+  font-size: 16px;
+  height: 35px;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  float: center;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+.link:hover {
+  text-decoration: underline;
+  color: #8C918F;
+}
+
+.alert {
+  display: none;
+  font-size: 12px;
+  color: #f00;
+  float: left;
+}
+
+@-moz-keyframes wrong-log {
+  0%, 100% {
+    left: 0px;
+  }
+  20% , 60% {
+    left: 15px;
+  }
+  40% , 80% {
+    left: -15px;
+  }
+}
+@-webkit-keyframes wrong-log {
+  0%, 100% {
+    left: 0px;
+  }
+  20% , 60% {
+    left: 15px;
+  }
+  40% , 80% {
+    left: -15px;
+  }
+}
+@keyframes wrong-log {
+  0%, 100% {
+    left: 0px;
+  }
+  20% , 60% {
+    left: 15px;
+  }
+  40% , 80% {
+    left: -15px;
+  }
+}
+  
+  </style>
+<title>Registartion Form</title>
 </head>
 <body class="bg-info">
- 
+ <center>
 <div class="container-wrapper">
     <div class="container">
-        <div class="page-header">
+        <div class="login-box">
             <h1>Register Customer</h1>
 
             <p class="lead">Please fill in your information below:</p>
@@ -36,33 +177,38 @@
         <h3>Basic Info:</h3>
 
         <div class="form-group">
-            <label for="name">Name</label>
+           
             <form:errors path="customerName" cssStyle="color: #ff0000" />
-            <form:input path="customerName"  class="form-Control" />
+            <form:input path="customerName" placeholder="Name" class="form-Control" />
         </div>
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            
+		<c:if test="${duplicateEmail!=null }">
+        		${duplicateEmail }
+        </c:if>
+			
+        <div class="form-group"> 
             <form:errors path="customerEmail" cssStyle="color: #ff0000" />
-            <form:input path="customerEmail"  class="form-Control" />
+            <form:input path="customerEmail"  placeholder="Email" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="phone">Phone</label>
-            <form:input path="customerPhone"  class="form-Control" />
+            <form:errors path="customerPhone" cssStyle="color: #ff0000" />
+            <form:input path="customerPhone"  placeholder="Phone" class="form-Control" />
         </div>
-
+        
+		<c:if test="${duplicateUname!=null }">
+       			 ${duplicateUname }
+        </c:if>
+		
         <div class="form-group">
-            <label for="username">Username</label>
+            
             <form:errors path="users.username" cssStyle="color: #ff0000" />
-            <form:input path="users.username"  class="form-Control" />
+            <form:input path="users.username"  placeholder="Username" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
+          
             <form:errors path="users.password" cssStyle="color: #ff0000" />
-            <form:password path="users.password" class="form-Control" />
+            <form:password path="users.password" placeholder="Password" class="form-Control" />
         </div>
 
 
@@ -71,33 +217,32 @@
         <h3>Billing Address:</h3>
 
         <div class="form-group">
-            <label for="billingStreet">Street Name</label>
-            <form:input path="billingAddress.streetName"  class="form-Control" />
+            
+            <form:input path="billingAddress.streetName" placeholder="Street Name" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="billingApartmentNumber">Apartment Number</label>
-            <form:input path="billingAddress.apartmentNumber"  class="form-Control" />
+            
+            <form:input path="billingAddress.apartmentNumber"  placeholder="Apartment Number" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="billingCity">City</label>
-            <form:input path="billingAddress.city"  class="form-Control" />
+          
+            <form:input path="billingAddress.city" placeholder="City"  class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="billingState">State</label>
-            <form:input path="billingAddress.state" class="form-Control" />
+            
+            <form:input path="billingAddress.state" placeholder="State" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="billingCountry">Country</label>
-            <form:input path="billingAddress.country"  class="form-Control" />
+           
+            <form:input path="billingAddress.country" placeholder="Country" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="billingZip">Zipcode</label>
-            <form:input path="billingAddress.zipcode"  class="form-Control" />
+            <form:input path="billingAddress.zipcode" placeholder="Zipcode" class="form-Control" />
         </div>
 
         <br/>
@@ -105,43 +250,39 @@
         <h3>Shipping Address:</h3>
 
         <div class="form-group">
-            <label for="shippingStreet">Street Name</label>
-            <form:input path="shippingAddress.streetName"  class="form-Control" />
+        	<form:errors path="shippingAddress.streetName" cssStyle="color: #ff0000" />
+            <form:input path="shippingAddress.streetName" placeholder="Street Name" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="shippingApartmentNumber">Apartment Number</label>
-            <form:input path="shippingAddress.apartmentNumber" class="form-Control" />
+            <form:input path="shippingAddress.apartmentNumber" placeholder="Apartment Number" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="shippingCity">City</label>
-            <form:input path="shippingAddress.city" class="form-Control" />
+            <form:input path="shippingAddress.city" placeholder="City" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="shippingState">State</label>
-            <form:input path="shippingAddress.state"  class="form-Control" />
+            <form:input path="shippingAddress.state" placeholder="State" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="shippingCountry">Country</label>
-            <form:input path="shippingAddress.country"  class="form-Control" />
+            <form:input path="shippingAddress.country" placeholder="Country" class="form-Control" />
         </div>
 
         <div class="form-group">
-            <label for="shippingZip">Zipcode</label>
-            <form:input path="shippingAddress.zipcode" class="form-Control" />
+            <form:input path="shippingAddress.zipcode" placeholder="Zipcode" class="form-Control" />
         </div>
 
         <br/><br/>
 
-        <input type="submit" value="submit" class="btn btn-default">
-        <a href="<c:url value="/" />" class="btn btn-default">Cancel</a>
+        <input type="submit" value="submit" class="btn btn-warning">
+        <a href="<c:url value="/" />" class="btn btn-success">Cancel</a>
 
         </form:form>
 </div>
 </div>
+</center>
 <%@ include file="footer.jsp" %> 
  
 </body>

@@ -1,5 +1,7 @@
 package com.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,12 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="cartitem")
-public class CartItem {
+public class CartItem implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 private int cartItemId;
 private int quantity;
-private double price;
+private double totalprice;
 @ManyToOne
 @JoinColumn(name="productId")
 private Product product;
@@ -34,13 +36,14 @@ public int getQuantity() {
 public void setQuantity(int quantity) {
 	this.quantity = quantity;
 }
-public double getPrice() {
-	return price;
+
+public double getTotalprice() {
+	return totalprice;
 }
-public void setPrice(double price) {
-	this.price = price;
+public void setTotalprice(double totalprice) {
+	this.totalprice = totalprice;
 }
-public Product getProuduct() {
+public Product getProduct() {
 	return product;
 }
 public void setProduct(Product product) {
@@ -54,4 +57,3 @@ public void setCart(Cart cart) {
 }
 
 }
-

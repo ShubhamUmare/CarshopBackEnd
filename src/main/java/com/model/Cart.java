@@ -1,5 +1,6 @@
 package com.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,16 +13,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+/**
+ * @author shubham
+ *
+ */
 @Entity
 @Table(name="cart")
-public class Cart {
+public class Cart implements Serializable {
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 private int cartId;
 @OneToOne
 @JoinColumn(name="customerId")
+@JsonIgnore
 private Customer customer;
-private Double totalPrice;
+private double totalPrice;
 
 @OneToMany(mappedBy="cart",cascade=CascadeType.ALL)
 private List<CartItem> cartItem;
@@ -42,11 +50,12 @@ public void setCustomer(Customer customer) {
 	this.customer = customer;
 }
 
-public Double getTotalPrice() {
+
+public double getTotalPrice() {
 	return totalPrice;
 }
 
-public void setTotalPrice(Double totalPrice) {
+public void setTotalPrice(double totalPrice) {
 	this.totalPrice = totalPrice;
 }
 

@@ -19,7 +19,7 @@
 	<center>
 	<h1>Edit Product</h1>
 	<c:url value="/admin/product/editProduct" var="url"></c:url> 
-	<form:form method="post" action="${url}" commandName="editProductObj">
+	<form:form method="post" action="${url}" commandName="editProductObj" modelAttribute="editProductObj">
 		<table>
 		<tr>
 			<td><form:label path="ID">ID</form:label></td>
@@ -46,7 +46,7 @@
 	    </tr>
 	    
 	    <tr>
-	    <td colspan="2"><input type="submit" value="EditBook"></td>
+	    <td colspan="2"><input type="submit" value="EditProduct"></td>
 	    </tr>
 		</table>
 	</form:form>
